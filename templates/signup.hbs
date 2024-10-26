@@ -84,39 +84,69 @@
         .form-group a:hover {
             text-decoration: underline;
         }
+
+        .gender-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            /* Add some margin below for spacing */
+        }
+
+        .gender-container input[type="radio"] {
+            margin-left: 2px;
+            /* Add some spacing between label and radio button */
+            margin-right: 5px;
+            /* Add spacing between radio buttons */
+        }
     </style>
 </head>
 
 <body>
 
     <div class="form-container">
+        {{#if error}}
+        <p style="color: red;">{{error}}</p>
+        {{/if}}
+
         <h2>Sign Up</h2>
         <form action="/signup" method="post">
-            <label for="name">Username:</label>
-            <input type="text" id="name" name="name" required autocomplete="off"/>
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required autocomplete="off" />
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required autocomplete="off" />
+            <label for="Email">Email</label>
+            <input type="text" id="Email" name="Email" required autocomplete="off" />
+            <label for="birthday">Birth Date</label>
+            <input type="date" id="birthday" name="birthday" required />
+            <label for="gender">Gender:</label>
+            <div class="gender-container">
+                Male <input class="radio" type="radio" id="male" name="gender" value="male">
+                Female <input class="radio" type="radio" id="female" name="gender" value="female">
+            </div>
+
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required autocomplete="off"/>
+            <input type="password" id="password" name="password" required autocomplete="off" />
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required autocomplete="off" />
             <input type="submit" value="Sign Up" />
+
         </form>
         <div class="form-group">
             <p>Already have an Account? <a href="/login">Login</a></p>
         </div>
     </div>
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const form = document.querySelector('form');
-        const passwordInput = document.getElementById('password');
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form');
+            const passwordInput = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword')
+            form.addEventListener('submit', function (event) {
+                const password = passwordInput.value;
+                const confirmPassword = confirmPassword.value;
 
-        form.addEventListener('submit', function (event) {
-            const password = passwordInput.value;
-            
-            if (password.length < 7) {
-                event.preventDefault();
-                alert('Password must be at least 7 characters long.');
-            }
+            });
         });
-    });
-</script>
+    </script>
 </body>
 
 </html>
